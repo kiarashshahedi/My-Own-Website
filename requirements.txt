@@ -1,1 +1,2 @@
 Django
+python-decouple # using for environments variables 
