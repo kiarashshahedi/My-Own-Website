@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'products',
+    # 'products',
 ]
 
 MIDDLEWARE = [
@@ -89,3 +89,6 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CUSTOM USER CONFIG
+AUTH_USER_MODEL = 'accounts.Custom_User'
