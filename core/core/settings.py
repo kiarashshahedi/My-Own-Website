@@ -20,6 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # API
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'drf_yasg',
+    # apps 
     'accounts',
     # 'products',
 ]
@@ -98,3 +105,16 @@ STATIC_DIRS = [BASE_DIR / 'staticfiles',]
 # MEDIA
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# DRF configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+# OTP Settings 
+OTP_TOTP_ISSUER = "TakKharid"

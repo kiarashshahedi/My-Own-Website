@@ -4,6 +4,11 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 # importing signals
 from django.db.models.signals import post_save 
 from django.dispatch import receiver
+# for OTP 
+from datetime import timedelta
+from django.utils import timezone
+import random
+
 
 # USER manager
 class CustomUserManager(BaseUserManager):
@@ -84,7 +89,17 @@ class Custom_User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
     
-  
+    # Generating OTP :
+    def generate_otp(self):
+        self.otp = str(random.randint(100000, 999999))
+        self.otp_expiry = timezone.now() + timedelta(minutes=10)
+        self.save()
+
+    def verify_otp(self, otp):
+        return self.otp == otp and self.otp_expiry > timezone.now()
+    
+    
+
 class Buyer_Profile(models.Model):
     '''
     profile of user that add many infos to user model and save some infos 
