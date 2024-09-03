@@ -1,7 +1,9 @@
 from typing import Any
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+# importing signals
+from django.db.models.signals import post_save 
+from django.dispatch import receiver
 
 # USER manager
 class CustomUserManager(BaseUserManager):
@@ -45,9 +47,6 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-
-
-
 # USER 
 class Custom_User(AbstractBaseUser, PermissionsMixin):
     """
@@ -58,8 +57,8 @@ class Custom_User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     mobile = models.CharField(max_length=11, unique=True)
     
-    is_superuser = models.BooleanField(default=False) # access to admin panel 
-    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=True) # access to admin panel 
+    is_staff = models.BooleanField(default=True)
     
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True) 
@@ -85,8 +84,7 @@ class Custom_User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
     
-    
-    
+  
 class Buyer_Profile(models.Model):
     '''
     profile of user that add many infos to user model and save some infos 
@@ -104,8 +102,8 @@ class Buyer_Profile(models.Model):
     
     address_1 = models.TextField(null=True, blank=True)
     address_2 = models.TextField(null=True, blank=True)
-    zip_code = models.CharField(max_length=10, unique=True)
-    meli_code = models.CharField(max_length=10, unique=True)
+    zip_code = models.CharField(max_length=10, blank=True)
+    meli_code = models.CharField(max_length=10, blank=True)
     
     # favorite_categories = models.ManyToManyField('products.Category', blank=True)
     product_points = models.PositiveIntegerField(default=0)
@@ -126,6 +124,11 @@ class Buyer_Profile(models.Model):
     def remove_from_wishlist(self, product):
         self.seen_products.remove(product)
         
+''' signal for making buyer profile automaticly after creating user '''
+@receiver(post_save, sender=Custom_User)
+def save_buyer_profile(sender, instance, created, **kwargs):
+    if created:
+        Buyer_Profile.objects.create(user=instance)
         
         
 class Seller_Profile(models.Model):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import Custom_User
+from .models import Custom_User, Buyer_Profile, Seller_Profile
 
 class CustomUserAdmin(BaseUserAdmin):
     model = Custom_User
@@ -12,7 +12,7 @@ class CustomUserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('name', 'mobile')}),
         ('Permissions', {'fields': ('is_active', 'is_superuser', 'is_verified', 'is_seller')}),
-        ('Important dates', {'fields': ('last_login', 'created_date', 'updated_date')}),
+        ('Important dates', {'fields': ('last_login',)}),
     )
 
     add_fieldsets = (
@@ -26,3 +26,6 @@ class CustomUserAdmin(BaseUserAdmin):
 
 # Register the custom user model with the admin site
 admin.site.register(Custom_User, CustomUserAdmin)
+
+# register Buyer profile in admin page
+admin.site.register(Buyer_Profile)
