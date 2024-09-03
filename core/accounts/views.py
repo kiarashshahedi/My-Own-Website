@@ -2,6 +2,20 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import BuyerRegistrationForm, SellerRegistrationForm
 from .models import Custom_User
+# api
+import random
+from django.utils import timezone
+from django.contrib.auth import authenticate
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
+from .models import Custom_User, Buyer_Profile, Seller_Profile
+from .serializers import CustomUserSerializer, BuyerProfileSerializer, SellerProfileSerializer
+
+
+# normal part 
 
 def buyer_register(request):
     '''
@@ -31,16 +45,7 @@ def seller_register(request):
         form = SellerRegistrationForm()
     return render(request, 'accounts/seller_register.html', {'form': form})
 
-import random
-from django.utils import timezone
-from django.contrib.auth import authenticate
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.permissions import AllowAny
-from rest_framework.authtoken.models import Token
-from .models import Custom_User, Buyer_Profile, Seller_Profile
-from .serializers import CustomUserSerializer, BuyerProfileSerializer, SellerProfileSerializer
+# API part
 
 class RegisterBuyerView(APIView):
     '''
@@ -51,16 +56,15 @@ class RegisterBuyerView(APIView):
     def post(self, request):
         mobile = request.data.get('mobile')
         name = request.data.get('name')
-        email = request.data.get('email')
 
-        if not mobile or not name or not email:
+        if not mobile or not name :
             return Response({'error': 'Mobile, name, and email are required'}, status=status.HTTP_400_BAD_REQUEST)
 
         if Custom_User.objects.filter(mobile=mobile).exists():
             return Response({'error': 'Mobile number already registered'}, status=status.HTTP_400_BAD_REQUEST)
 
         otp = random.randint(100000, 999999)
-        user = Custom_User.objects.create_user(mobile=mobile, password=None, name=name, email=email, otp=str(otp))
+        user = Custom_User.objects.create_user(mobile=mobile, password=None, name=name, otp=str(otp))
         user.is_active = False  # Inactive until OTP is verified
         user.save()
 
