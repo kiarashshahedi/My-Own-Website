@@ -15,9 +15,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Your Project API",
+      title="TakKharid API",
       default_version='v1',
-      description="API documentation for your Django project",
+      description="API documentation for your TakKharid WebSite",
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
