@@ -133,7 +133,6 @@ def save_buyer_profile(sender, instance, created, **kwargs):
         
 class Seller_Profile(models.Model):
     user = models.ForeignKey(Custom_User, on_delete=models.CASCADE)
-    is_seller = True
     
     store_name = models.CharField(max_length=255)
     description = models.TextField()
@@ -146,7 +145,8 @@ class Seller_Profile(models.Model):
     
     zip_code = models.CharField(max_length=10, unique=True)
     meli_code = models.CharField(max_length=10, unique=True)
-    
+    mobile = models.CharField(max_length=11, unique=True)  
+
     # شناسه منحصر به فرد برای یک کسب و کار
     business_registration_number = models.CharField(max_length=50, unique=True, null=True, blank=True)
     # زمانی که فروشگاه فروشنده تاسیس شد

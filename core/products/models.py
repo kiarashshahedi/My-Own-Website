@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+from accounts.models import Seller_Profile
+
+User = get_user_model()
 
 class Products(models.Model):
     '''
@@ -7,7 +11,7 @@ class Products(models.Model):
     name = models.CharField(max_length=100)
     about = models.TextField()
     image = models.ImageField()
-    seller = models.ForeignKey('seller', on_delete=models.CASCADE)
+    seller = models.ForeignKey(Seller_Profile, on_delete=models.CASCADE)
     buyer_counts = models.IntegerField()
     status = models.BooleanField()
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
