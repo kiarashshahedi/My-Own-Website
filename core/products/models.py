@@ -24,13 +24,13 @@ class Products(models.Model):
         return self.name
     
 # Category model
-class category(models.Model):
+class Category(models.Model):
     """
     this is category for ordering products of products app
     """
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True)
-    children = models.ForeignKey('self', null=True, blank=True, related_name='children', on_delete=models.CASCADE)
+    children = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

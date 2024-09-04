@@ -28,7 +28,12 @@ INSTALLED_APPS = [
     'drf_yasg',
     # apps 
     'accounts',
-    # 'products',
+    'orders',
+    'products',
+    'cart',
+    'dashboard',
+    'payments',
+    
 ]
 
 MIDDLEWARE = [
@@ -64,8 +69,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'my_website_db',
+        'USER': 'kiarashshahedi',
+        'PASSWORD': 'KiarashShahedi',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 

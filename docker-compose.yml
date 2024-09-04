@@ -2,6 +2,19 @@ version: '3.9'
 
 services:
 
+  db:
+    image: postgres:13
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: kiarashshahedi
+      POSTGRES_PASSWORD: KiarashShahedi
+      POSTGRES_DB: my_website_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    container_name: backend_db
+
+
   backend:
     build: .
     container_name: backend
@@ -13,7 +26,9 @@ services:
     environment:
      - SECRET_KEY=test
      - DEBUG=True
+    depends_on:
+      - db
      
-
-
+volumes:
+  postgres_data:
 

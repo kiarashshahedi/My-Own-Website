@@ -110,12 +110,12 @@ class Buyer_Profile(models.Model):
     last_name = models.CharField(max_length=50)
     date_of_birth = models.DateField(null=True, blank=True)
     cart_history = models.ManyToManyField('cart.Cart', blank=True)
-    buy_history = models.ManyToManyField('order.Order', blank=True)
+    buy_history = models.ManyToManyField('orders.Order', blank=True)
     buy_status = models.BooleanField(default=False)
     meli_code = models.CharField(max_length=10, blank=True)
     favorite_categories = models.ManyToManyField('products.Category', blank=True)
     product_points = models.PositiveIntegerField(default=0)
-    seen_products = models.ManyToManyField('products.Product', blank=True)
+    seen_products = models.ManyToManyField('products.Products', blank=True)
 
     def __str__(self):
         return self.first_name
