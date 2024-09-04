@@ -1,16 +1,15 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CustomUserViewSet, BuyerProfileViewSet, SellerProfileViewSet, AddressViewSet
+
+router = DefaultRouter()
+router.register(r'users', CustomUserViewSet)
+router.register(r'buyer-profiles', BuyerProfileViewSet)
+router.register(r'seller-profiles', SellerProfileViewSet)
+router.register(r'addresses', AddressViewSet)
 
 urlpatterns = [
-    
-    # Normal Views :
-    path('buyer/register/', views.buyer_register, name='buyer_register'),
-    path('seller/register/', views.seller_register, name='seller_register'),
-    
-    # API Views :
-    path('register/buyer/', views.RegisterBuyerView.as_view(), name='register-buyer'),
-    path('verify-otp/', views.VerifyOTPView.as_view(), name='verify-otp'),
-    path('register/seller/', views.RegisterSellerView.as_view(), name='register-seller'),
-    path('login/', views.LoginView.as_view(), name='login'),
-    
+    path('', include(router.urls)),
 ]
+
+    

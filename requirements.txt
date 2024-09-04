@@ -5,3 +5,4 @@ drf_yasg
 djangorestframework
 django-otp
 psycopg2-binary
+djangorestframework-simplejwt

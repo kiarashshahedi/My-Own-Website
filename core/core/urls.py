@@ -26,14 +26,16 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # normal usrls
-    # path('accounts/', include('accounts.urls')),
-    
-    # API urls
-    path('api/accounts/', include('accounts.urls')),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+   path('admin/', admin.site.urls),
+   # normal usrls
+   # path('accounts/', include('accounts.urls')),
+
+   # API urls
+   path('accounts/', include('accounts.urls')),
+   path('products/', include('products.urls')),
+
+   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+   path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
 # loading static and media for development 
