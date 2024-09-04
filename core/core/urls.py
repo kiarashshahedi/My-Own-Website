@@ -8,12 +8,7 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
-router.register(r'products', ProductsViewSet)
-router.register(r'categories', CategoryViewSet)
-router.register(r'reviews', ReviewViewSet)
 
 schema_view = get_schema_view(
    openapi.Info(
