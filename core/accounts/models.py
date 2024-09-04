@@ -106,23 +106,16 @@ class Buyer_Profile(models.Model):
     '''
     
     user = models.ForeignKey(Custom_User, on_delete=models.CASCADE)
-    
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     date_of_birth = models.DateField(null=True, blank=True)
-
-    # cart_history = models.ManyToManyField('cart.Cart', blank=True)
+    cart_history = models.ManyToManyField('cart.Cart', blank=True)
+    buy_history = models.ManyToManyField('order.Order', blank=True)
     buy_status = models.BooleanField(default=False)
-    # buy_history = models.ManyToManyField('order.Order', blank=True)
-    
-    address_1 = models.TextField(null=True, blank=True)
-    address_2 = models.TextField(null=True, blank=True)
-    zip_code = models.CharField(max_length=10, blank=True)
     meli_code = models.CharField(max_length=10, blank=True)
-    
-    # favorite_categories = models.ManyToManyField('products.Category', blank=True)
+    favorite_categories = models.ManyToManyField('products.Category', blank=True)
     product_points = models.PositiveIntegerField(default=0)
-    # seen_products = models.ManyToManyField('products.Product', blank=True)
+    seen_products = models.ManyToManyField('products.Product', blank=True)
 
     def __str__(self):
         return self.first_name
@@ -191,4 +184,12 @@ class Seller_Profile(models.Model):
     def __str__(self):
         return self.store_name
 
-    
+# Adress model
+class Address(models.Model):
+    user = models.ForeignKey(Custom_User, on_delete=models.CASCADE)
+    address_line1 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=20)
+    country = models.CharField(max_length=100)

@@ -4,6 +4,7 @@ from accounts.models import Seller_Profile
 
 User = get_user_model()
 
+# Products model
 class Products(models.Model):
     '''
     this is a class to define products for products app 
@@ -22,7 +23,7 @@ class Products(models.Model):
     def __str__(self):
         return self.name
     
-    
+# Category model
 class category(models.Model):
     """
     this is category for ordering products of products app
@@ -33,3 +34,10 @@ class category(models.Model):
 
     def __str__(self):
         return self.name
+
+# Review Model
+class Review(models.Model):
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField()
+    comment = models.TextField()
