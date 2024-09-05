@@ -22,6 +22,9 @@ schema_view = get_schema_view(
    public=True,
     permission_classes=(permissions.AllowAny,),
 )
+
+
+
 urlpatterns = [
    path('admin/', admin.site.urls),
    # API urls
@@ -29,7 +32,12 @@ urlpatterns = [
    path('products/', include('products.urls')),
    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+   path('docs/', schema_view.without_ui(cache_timeout=0), name='schema-json'), # for downloading api docs
+
 ]
+
+
+
 
 # loading static and media for development 
 if settings.DEBUG:

@@ -6,3 +6,4 @@ djangorestframework
 django-otp
 psycopg2-binary
 djangorestframework-simplejwt
+django-cors-headers # alowing port for frontend developer
