@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_totp',
     'drf_yasg',
     'rest_framework_simplejwt',
+
     # apps 
     'accounts',
     'orders',
@@ -120,8 +121,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # DRF configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     ),
     
     'DEFAULT_PERMISSION_CLASSES': (
