@@ -5,11 +5,13 @@ from .models import Custom_User, Buyer_Profile, Seller_Profile, Address
 from .serializers import CustomUserSerializer, BuyerProfileSerializer, SellerProfileSerializer, AddressSerializer
 from django.contrib.auth import authenticate, login
 from datetime import timezone
+from rest_framework.permissions import AllowAny
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = Custom_User.objects.all()
     serializer_class = CustomUserSerializer
+    permission_classes = [AllowAny]  
 
     @action(detail=False, methods=['post'])
     def register(self, request):
